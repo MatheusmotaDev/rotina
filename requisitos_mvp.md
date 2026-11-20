@@ -39,11 +39,11 @@ MOD01 — Autenticação e onboarding
 Código	Requisito funcional
 ✅ RF001	Permitir o cadastro de conta por e-mail e senha.
 ✅ RF002	Permitir autenticação, encerramento de sessão e recuperação de acesso por e-mail.
-RF003	Apresentar um onboarding na primeira utilização, com perguntas sobre estudo, trabalho e objetivos de organização.
-RF004	Permitir cadastrar horários habituais de dormir e acordar.
-RF005	Permitir informar necessidades e reservas de tempo, como refeições, descanso e deslocamentos.
-RF006	Permitir revisar e editar as informações do onboarding posteriormente.
-RF007	Apresentar um resumo da rotina inicial antes do primeiro planejamento.
+✅ RF003	Apresentar um onboarding na primeira utilização, com perguntas sobre estudo, trabalho e objetivos de organização.
+✅ RF004	Permitir cadastrar horários habituais de dormir e acordar.
+✅ RF005	Permitir informar necessidades e reservas de tempo, como refeições, descanso e deslocamentos.
+✅ RF006	Permitir revisar e editar as informações do onboarding posteriormente.
+✅ RF007	Apresentar um resumo da rotina inicial antes do primeiro planejamento.
 Critério principal de aceite: após criar a conta e preencher as informações mínimas, o usuário chega à tela Hoje com sua rotina inicial disponível; não precisa refazer o onboarding a cada acesso.
 MOD02 — Compromissos fixos e recorrentes
 Código	Requisito funcional
@@ -256,7 +256,7 @@ Ferramentas de gestão financeira ou de projetos corporativos.
 ---
 9. Definição de pronto do MVP
 O MVP estará pronto para validação de produto quando:
-[ ] O usuário conseguir criar sua conta e cadastrar uma rotina.
+[✅] O usuário conseguir criar sua conta e cadastrar uma rotina.
 [ ] Compromissos recorrentes e exceções funcionarem corretamente.
 [ ] O check-in recalcular a disponibilidade sem alterar a agenda automaticamente.
 [ ] O motor encontrar janelas livres sem sobreposições e detectar sobrecarga.
