@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../core/theme/app_theme.dart';
+import '../features/auth/presentation/views/auth_gate.dart';
 import '../features/shell/presentation/views/app_shell.dart';
 
 class RotinaApp extends StatelessWidget {
@@ -22,7 +23,7 @@ class RotinaApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const AppShell(),
+      home: supabaseEnabled ? const AuthGate() : const AppShell(),
     );
   }
 }
