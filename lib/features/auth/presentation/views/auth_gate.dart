@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../onboarding/presentation/views/onboarding_page.dart';
 import '../../../shell/presentation/views/app_shell.dart';
 import '../viewmodels/auth_providers.dart';
 import 'welcome_page.dart';
@@ -13,9 +14,14 @@ class AuthGate extends ConsumerWidget {
     final session = ref.watch(authSessionProvider);
 
     return session.when(
-      data: (value) => value == null
-          ? const WelcomePage()
-          : const AppShell(authenticated: true),
+      data: (value) {
+        if (value == null) return const WelcomePage();
+        final completed =
+            value.user.userMetadata?['onboarding_concluido'] as bool? ?? false;
+        return completed
+            ? const AppShell(authenticated: true)
+            : const OnboardingPage();
+      },
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (_, _) => Scaffold(

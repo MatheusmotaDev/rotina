@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../auth/presentation/viewmodels/auth_form_view_model.dart';
 import '../../../auth/presentation/viewmodels/auth_providers.dart';
+import '../../../onboarding/presentation/viewmodels/onboarding_view_model.dart';
+import '../../../onboarding/presentation/views/onboarding_page.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -41,7 +43,7 @@ class ProfilePage extends ConsumerWidget {
                   leading: const Icon(Icons.schedule_rounded),
                   title: const Text('Minha rotina'),
                   trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () {},
+                  onTap: () => _editRoutine(context, ref),
                 ),
                 const Divider(height: 1),
                 ListTile(
@@ -92,5 +94,14 @@ class ProfilePage extends ConsumerWidget {
     if (confirmed == true) {
       await ref.read(authFormViewModelProvider.notifier).signOut();
     }
+  }
+
+  Future<void> _editRoutine(BuildContext context, WidgetRef ref) async {
+    ref.invalidate(onboardingViewModelProvider);
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => const OnboardingPage(editing: true),
+      ),
+    );
   }
 }

@@ -7,6 +7,8 @@ class AuthRepository {
 
   final SupabaseClient _client;
 
+  SupabaseClient get client => _client;
+
   Session? get currentSession => _client.auth.currentSession;
 
   User? get currentUser => _client.auth.currentUser;
