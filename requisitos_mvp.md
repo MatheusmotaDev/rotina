@@ -31,12 +31,14 @@ CA: critério de aceite — situação que deve funcionar para a entrega ser ace
 Planejamento: programação prevista para um dia.
 Execução: o que efetivamente aconteceu; não deve ser confundido com o planejamento.
 Todos os requisitos funcionais abaixo integram o escopo do MVP 1.0, exceto quando houver indicação expressa de que são evoluções futuras.
+
+**Acompanhamento:** ✅ indica requisito implementado no código atual. Itens sem o símbolo permanecem pendentes ou parciais.
 ---
 2. Módulos e requisitos funcionais
 MOD01 — Autenticação e onboarding
 Código	Requisito funcional
-RF001	Permitir o cadastro de conta por e-mail e senha.
-RF002	Permitir autenticação, encerramento de sessão e recuperação de acesso por e-mail.
+✅ RF001	Permitir o cadastro de conta por e-mail e senha.
+✅ RF002	Permitir autenticação, encerramento de sessão e recuperação de acesso por e-mail.
 RF003	Apresentar um onboarding na primeira utilização, com perguntas sobre estudo, trabalho e objetivos de organização.
 RF004	Permitir cadastrar horários habituais de dormir e acordar.
 RF005	Permitir informar necessidades e reservas de tempo, como refeições, descanso e deslocamentos.
@@ -167,11 +169,11 @@ Sessão de foco / pausa: `em andamento` → `pausada` (se aplicável) → `encer
 ---
 4. Requisitos não funcionais
 Código	Requisito não funcional
-RNF001	Aplicativo mobile desenvolvido em Flutter para Android e iOS.
-RNF002	Interface em português do Brasil, com visual dark mode e identidade roxa aprovada para o produto.
-RNF003	Utilizar MVVM e Riverpod, mantendo regras de negócio separadas da apresentação.
-RNF004	Utilizar Supabase Auth para autenticação e PostgreSQL como banco relacional.
-RNF005	Aplicar políticas de Row Level Security (RLS) às tabelas que armazenam dados de usuários.
+✅ RNF001	Aplicativo mobile desenvolvido em Flutter para Android e iOS.
+✅ RNF002	Interface em português do Brasil, com visual dark mode e identidade roxa aprovada para o produto.
+✅ RNF003	Utilizar MVVM e Riverpod, mantendo regras de negócio separadas da apresentação.
+✅ RNF004	Utilizar Supabase Auth para autenticação e PostgreSQL como banco relacional.
+✅ RNF005	Aplicar políticas de Row Level Security (RLS) às tabelas que armazenam dados de usuários.
 RNF006	Validar entradas e restringir relacionamentos para impedir acesso cruzado, dados inconsistentes e horários inválidos.
 RNF007	Manter o planejamento e os registros persistidos e sincronizáveis entre sessões autenticadas.
 RNF008	Exibir estados de carregamento, ausência de dados e falhas de conexão, evitando confirmar ações que não foram salvas.
