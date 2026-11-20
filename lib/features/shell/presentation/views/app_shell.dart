@@ -3,20 +3,28 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../home/presentation/views/home_page.dart';
+import '../../../profile/presentation/views/profile_page.dart';
 import '../../../shared/presentation/views/placeholder_page.dart';
 import '../viewmodels/shell_view_model.dart';
 
 class AppShell extends ConsumerWidget {
-  const AppShell({super.key});
+  const AppShell({this.authenticated = false, super.key});
+
+  final bool authenticated;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(shellViewModelProvider);
-    const pages = [
-      HomePage(),
-      PlaceholderPage(title: 'Foco', icon: Icons.timer_outlined),
-      PlaceholderPage(title: 'Tarefas', icon: Icons.check_box_outlined),
-      PlaceholderPage(title: 'Perfil', icon: Icons.person_outline_rounded),
+    final pages = [
+      const HomePage(),
+      const PlaceholderPage(title: 'Foco', icon: Icons.timer_outlined),
+      const PlaceholderPage(title: 'Tarefas', icon: Icons.check_box_outlined),
+      authenticated
+          ? const ProfilePage()
+          : const PlaceholderPage(
+              title: 'Perfil',
+              icon: Icons.person_outline_rounded,
+            ),
     ];
 
     return Scaffold(

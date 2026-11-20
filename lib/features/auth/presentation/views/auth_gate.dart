@@ -13,7 +13,9 @@ class AuthGate extends ConsumerWidget {
     final session = ref.watch(authSessionProvider);
 
     return session.when(
-      data: (value) => value == null ? const WelcomePage() : const AppShell(),
+      data: (value) => value == null
+          ? const WelcomePage()
+          : const AppShell(authenticated: true),
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (_, _) => Scaffold(
