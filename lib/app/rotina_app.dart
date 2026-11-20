@@ -5,7 +5,9 @@ import '../core/theme/app_theme.dart';
 import '../features/shell/presentation/views/app_shell.dart';
 
 class RotinaApp extends StatelessWidget {
-  const RotinaApp({super.key});
+  const RotinaApp({this.supabaseEnabled = false, super.key});
+
+  final bool supabaseEnabled;
 
   @override
   Widget build(BuildContext context) {
