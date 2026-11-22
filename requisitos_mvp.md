@@ -47,10 +47,10 @@ Código	Requisito funcional
 Critério principal de aceite: após criar a conta e preencher as informações mínimas, o usuário chega à tela Hoje com sua rotina inicial disponível; não precisa refazer o onboarding a cada acesso.
 MOD02 — Compromissos fixos e recorrentes
 Código	Requisito funcional
-RF008	Cadastrar compromissos com título, dias da semana, horário de início e término.
-RF009	Permitir criar, consultar, editar, ativar/desativar e excluir compromissos recorrentes.
+✅ RF008	Cadastrar compromissos com título, dias da semana, horário de início e término.
+✅ RF009	Permitir criar, consultar, editar, ativar/desativar e excluir compromissos recorrentes.
 RF010	Classificar compromissos como obrigatórios ou flexíveis para fins de planejamento.
-RF011	Permitir informar deslocamento associado a compromissos.
+✅ RF011	Permitir informar deslocamento associado a compromissos.
 RF012	Permitir cancelar ou alterar a ocorrência de um compromisso em uma data específica, sem apagar a regra semanal.
 RF013	Mostrar os compromissos aplicáveis ao dia e identificar conflitos de horários.
 Critério principal de aceite: cadastrar “Faculdade, segunda a sexta, 18h30–21h40” deve reservar esses intervalos nas datas pertinentes. Cancelar apenas uma quarta-feira não exclui o compromisso das demais semanas.
