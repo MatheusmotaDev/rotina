@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../domain/models/daily_availability.dart';
+import '../../../tasks/domain/models/task_item.dart';
+import '../../../tasks/presentation/viewmodels/tasks_view_model.dart';
 import '../viewmodels/availability_provider.dart';
 
 class AvailabilityPage extends ConsumerWidget {
@@ -11,6 +13,9 @@ class AvailabilityPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final availability = ref.watch(availabilityProvider);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final tasks = ref.watch(tasksViewModelProvider(today)).value ?? const [];
     return Scaffold(
       appBar: AppBar(title: const Text('Disponibilidade de hoje')),
       body: availability.when(
@@ -22,19 +27,28 @@ class AvailabilityPage extends ConsumerWidget {
             label: const Text('Tentar novamente'),
           ),
         ),
-        data: (value) => _AvailabilityContent(value: value),
+        data: (value) => _AvailabilityContent(value: value, tasks: tasks),
       ),
     );
   }
 }
 
 class _AvailabilityContent extends StatelessWidget {
-  const _AvailabilityContent({required this.value});
+  const _AvailabilityContent({required this.value, required this.tasks});
 
   final DailyAvailability value;
+  final List<TaskItem> tasks;
 
   @override
   Widget build(BuildContext context) {
+    final tasksThatDoNotFit = tasks
+        .where(
+          (task) =>
+              task.status != TaskStatus.completed &&
+              task.status != TaskStatus.cancelled &&
+              !value.canFit(task.estimatedMinutes),
+        )
+        .toList();
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
       children: [
@@ -54,6 +68,13 @@ class _AvailabilityContent extends StatelessWidget {
           const _Notice(
             icon: Icons.warning_amber_rounded,
             text: 'Existem compromissos com horários sobrepostos.',
+            color: AppColors.warning,
+          ),
+        if (tasksThatDoNotFit.isNotEmpty)
+          _Notice(
+            icon: Icons.assignment_late_outlined,
+            text:
+                '${tasksThatDoNotFit.length} tarefa(s) não cabem em nenhuma janela livre contínua.',
             color: AppColors.warning,
           ),
         Card(
@@ -111,6 +132,28 @@ class _AvailabilityContent extends StatelessWidget {
               ),
             ),
           ),
+        if (tasksThatDoNotFit.isNotEmpty) ...[
+          const SizedBox(height: 12),
+          Text(
+            'Tarefas que exigem atenção',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 8),
+          ...tasksThatDoNotFit.map(
+            (task) => Card(
+              child: ListTile(
+                leading: const Icon(
+                  Icons.warning_amber_rounded,
+                  color: AppColors.warning,
+                ),
+                title: Text(task.title),
+                subtitle: Text(
+                  'Precisa de ${_duration(task.estimatedMinutes)} contínuos.',
+                ),
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }

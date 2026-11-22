@@ -18,6 +18,12 @@ final availabilityProvider = FutureProvider<DailyAvailability>((ref) async {
       .select('hora_dormir_padrao,reserva_diaria_min')
       .eq('id', user.id)
       .single();
+  final reservationRows = await client
+      .from('reservas_pessoais')
+      .select('titulo,hora_inicio,hora_fim')
+      .eq('usuario_id', user.id)
+      .eq('ativo', true)
+      .contains('dias_semana', [checkin.date.weekday]);
   final sleepMinutes = _parseTime(profile['hora_dormir_padrao'] as String);
   final awakeStart = checkin.completed
       ? checkin.actualWake
@@ -53,14 +59,43 @@ final availabilityProvider = FutureProvider<DailyAvailability>((ref) async {
           end: occurrence.occupiedEnd,
           label: occurrence.source.title,
         ),
+      )
+      .toList();
+  busy.addAll(
+    reservationRows.map((row) {
+      final startMinutes = _parseTime(row['hora_inicio'] as String);
+      final endMinutes = _parseTime(row['hora_fim'] as String);
+      final start = DateTime(
+        checkin.date.year,
+        checkin.date.month,
+        checkin.date.day,
+        startMinutes ~/ 60,
+        startMinutes % 60,
       );
+      var end = DateTime(
+        checkin.date.year,
+        checkin.date.month,
+        checkin.date.day,
+        endMinutes ~/ 60,
+        endMinutes % 60,
+      );
+      if (!end.isAfter(start)) end = end.add(const Duration(days: 1));
+      return TimeInterval(
+        start: start,
+        end: end,
+        label: row['titulo'] as String,
+      );
+    }),
+  );
 
   return const AvailabilityEngine().calculate(
     AvailabilityInput(
       awakeStart: awakeStart,
       awakeEnd: awakeEnd,
-      busyIntervals: busy.toList(),
-      personalReserveMinutes: profile['reserva_diaria_min'] as int,
+      busyIntervals: busy,
+      personalReserveMinutes: reservationRows.isEmpty
+          ? profile['reserva_diaria_min'] as int
+          : 0,
       provisional: !checkin.completed,
     ),
   );
