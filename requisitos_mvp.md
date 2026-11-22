@@ -56,11 +56,11 @@ Código	Requisito funcional
 Critério principal de aceite: cadastrar “Faculdade, segunda a sexta, 18h30–21h40” deve reservar esses intervalos nas datas pertinentes. Cancelar apenas uma quarta-feira não exclui o compromisso das demais semanas.
 MOD03 — Check-in matinal
 Código	Requisito funcional
-RF014	Disponibilizar check-in diário para registrar a hora real de despertar.
-RF015	Perguntar se o usuário cumprirá os compromissos previstos para o dia (por exemplo, trabalho e faculdade).
-RF016	Permitir registrar o nível de disposição do usuário.
-RF017	Comparar o despertar real ao planejado e informar a diferença de tempo.
-RF018	Permitir atualizar o check-in do dia, preservando os dados necessários à análise do planejamento e da execução.
+✅ RF014	Disponibilizar check-in diário para registrar a hora real de despertar.
+✅ RF015	Perguntar se o usuário cumprirá os compromissos previstos para o dia (por exemplo, trabalho e faculdade).
+✅ RF016	Permitir registrar o nível de disposição do usuário.
+✅ RF017	Comparar o despertar real ao planejado e informar a diferença de tempo.
+✅ RF018	Permitir atualizar o check-in do dia, preservando os dados necessários à análise do planejamento e da execução.
 Critério principal de aceite: se o usuário planejou acordar às 08h e informou 10h, o cálculo de disponibilidade passa a considerar o novo início do período acordado. A agenda já confirmada não é reorganizada automaticamente.
 MOD04 — Cálculo de disponibilidade
 Código	Requisito funcional
