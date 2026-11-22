@@ -17,7 +17,7 @@ class AppShell extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(shellViewModelProvider);
     final pages = [
-      const HomePage(),
+      HomePage(authenticated: authenticated),
       const PlaceholderPage(title: 'Foco', icon: Icons.timer_outlined),
       const PlaceholderPage(title: 'Tarefas', icon: Icons.check_box_outlined),
       authenticated

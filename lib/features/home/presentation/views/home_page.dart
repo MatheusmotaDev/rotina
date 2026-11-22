@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../checkin/presentation/views/checkin_home_card.dart';
 import '../viewmodels/home_view_model.dart';
 
 class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+  const HomePage({this.authenticated = false, super.key});
+
+  final bool authenticated;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -85,19 +88,24 @@ class HomePage extends ConsumerWidget {
             iconColor: AppColors.primary,
           ),
           const SizedBox(height: 14),
-          _InfoCard(
-            label: 'Check-in da manhã',
-            title: summary.checkInCompleted ? 'Concluído às 08:00' : 'Pendente',
-            subtitle: summary.checkInCompleted
-                ? 'Seu planejamento considera o horário real.'
-                : 'Conte como o seu dia começou.',
-            icon: summary.checkInCompleted
-                ? Icons.check_circle_outline_rounded
-                : Icons.wb_sunny_outlined,
-            iconColor: summary.checkInCompleted
-                ? AppColors.success
-                : AppColors.warning,
-          ),
+          if (authenticated)
+            const CheckinHomeCard()
+          else
+            _InfoCard(
+              label: 'Check-in da manhã',
+              title: summary.checkInCompleted
+                  ? 'Concluído às 08:00'
+                  : 'Pendente',
+              subtitle: summary.checkInCompleted
+                  ? 'Seu planejamento considera o horário real.'
+                  : 'Conte como o seu dia começou.',
+              icon: summary.checkInCompleted
+                  ? Icons.check_circle_outline_rounded
+                  : Icons.wb_sunny_outlined,
+              iconColor: summary.checkInCompleted
+                  ? AppColors.success
+                  : AppColors.warning,
+            ),
         ],
       ),
     );

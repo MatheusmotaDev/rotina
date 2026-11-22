@@ -82,12 +82,46 @@ create table public.checkins_diarios (
     usuario_id uuid not null references public.perfis(id) on delete cascade,
     data_local date not null,
     acordou_em timestamptz not null,
+    acordar_planejado time not null,
     disposicao text not null check (disposicao in ('baixa','normal','alta')),
+    compromissos_confirmados jsonb not null default '{}'::jsonb
+      check (jsonb_typeof(compromissos_confirmados) = 'object'),
     observacao varchar(500),
     criado_em timestamptz not null default now(),
     atualizado_em timestamptz not null default now(),
     unique (usuario_id,data_local)
 );
+
+-- 05b. Versões anteriores preservadas quando o check-in é atualizado
+create table public.historico_checkins (
+    id uuid primary key default gen_random_uuid(),
+    usuario_id uuid not null references public.perfis(id) on delete cascade,
+    checkin_id uuid not null references public.checkins_diarios(id) on delete cascade,
+    acordou_em timestamptz not null,
+    acordar_planejado time not null,
+    disposicao text not null check (disposicao in ('baixa','normal','alta')),
+    compromissos_confirmados jsonb not null,
+    observacao varchar(500),
+    registrado_em timestamptz not null default now()
+);
+create index idx_historico_checkins
+  on public.historico_checkins(usuario_id,checkin_id,registrado_em desc);
+
+create function public.preservar_checkin_anterior()
+returns trigger language plpgsql security definer set search_path = '' as $$
+begin
+  insert into public.historico_checkins (
+    usuario_id,checkin_id,acordou_em,acordar_planejado,
+    disposicao,compromissos_confirmados,observacao
+  ) values (
+    old.usuario_id,old.id,old.acordou_em,old.acordar_planejado,
+    old.disposicao,old.compromissos_confirmados,old.observacao
+  );
+  return new;
+end;
+$$;
+create trigger preservar_versao_checkin before update on public.checkins_diarios
+  for each row execute function public.preservar_checkin_anterior();
 
 -- 06. Categorias personalizadas de tarefa
 create table public.categorias_tarefas (
@@ -333,7 +367,7 @@ declare owner_column text;
 begin
   foreach nome_tabela in array array[
     'perfis','preferencias_notificacoes','compromissos_recorrentes',
-    'excecoes_compromissos','checkins_diarios','categorias_tarefas',
+    'excecoes_compromissos','checkins_diarios','historico_checkins','categorias_tarefas',
     'tarefas','ocorrencias_tarefas','planejamentos_diarios',
     'blocos_agenda','propostas_replanejamento','alteracoes_proposta',
     'sessoes_foco','pausas'
@@ -341,7 +375,7 @@ begin
     owner_column := case when nome_tabela='perfis' then 'id' else 'usuario_id' end;
     execute format('alter table public.%I enable row level security',nome_tabela);
     execute format('revoke all on public.%I from anon, authenticated',nome_tabela);
-    if nome_tabela = any(array['planejamentos_diarios','blocos_agenda','propostas_replanejamento','alteracoes_proposta']) then
+    if nome_tabela = any(array['historico_checkins','planejamentos_diarios','blocos_agenda','propostas_replanejamento','alteracoes_proposta']) then
       execute format('grant select on public.%I to authenticated',nome_tabela);
       execute format('create policy %I on public.%I for select to authenticated using (%I = (select auth.uid()))',
          'leitura_proprietario',nome_tabela,owner_column);
