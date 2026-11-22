@@ -105,10 +105,10 @@ Código	Requisito funcional
 Critério principal de aceite: uma tarefa estimada em 90 minutos pode receber uma sessão real de 50 minutos sem que isso a marque automaticamente como concluída.
 MOD08 — Pausas e descanso
 Código	Requisito funcional
-RF048	Permitir iniciar e encerrar uma pausa.
-RF049	Permitir registrar descanso de duração predefinida ou personalizada.
-RF050	Manter o histórico de tempo de descanso realizado.
-RF051	Oferecer lembrete opcional para o encerramento da pausa.
+✅ RF048	Permitir iniciar e encerrar uma pausa.
+✅ RF049	Permitir registrar descanso de duração predefinida ou personalizada.
+✅ RF050	Manter o histórico de tempo de descanso realizado.
+✅ RF051	Oferecer lembrete opcional para o encerramento da pausa.
 Critério principal de aceite: uma pausa registrada deve aparecer no relatório sem ser tratada automaticamente como tarefa não concluída ou falha de produtividade.
 MOD09 — Notificações e lembretes
 Código	Requisito funcional
@@ -262,7 +262,7 @@ O MVP estará pronto para validação de produto quando:
 [✅] O motor encontrar janelas livres sem sobreposições e detectar sobrecarga.
 [✅] Tarefas pontuais e recorrentes puderem ser criadas e acompanhadas.
 [ ] O usuário conseguir aceitar, ajustar ou rejeitar propostas de replanejamento.
-[ ] Sessões de foco e descansos forem registrados separadamente do tempo estimado.
+[✅] Sessões de foco e descansos forem registrados separadamente do tempo estimado.
 [ ] Relatórios diários e semanais mostrarem dados coerentes.
 [ ] O planejamento de amanhã puder ser confirmado e revisto no dia seguinte.
 [ ] Notificações e widget funcionarem dentro dos limites do sistema operacional.
