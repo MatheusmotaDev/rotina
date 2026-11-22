@@ -65,11 +65,11 @@ Critério principal de aceite: se o usuário planejou acordar às 08h e informou
 MOD04 — Cálculo de disponibilidade
 Código	Requisito funcional
 ✅ RF019	Calcular o tempo acordado a partir dos horários de sono e despertar usados para o dia.
-RF020	Identificar intervalos ocupados por compromissos, deslocamentos e necessidades pessoais reservadas.
+✅ RF020	Identificar intervalos ocupados por compromissos, deslocamentos e necessidades pessoais reservadas.
 ✅ RF021	Calcular a duração total e o percentual de tempo disponível em relação ao período acordado.
 ✅ RF022	Identificar blocos livres de tempo nos quais uma tarefa possa efetivamente caber.
 ✅ RF023	Atualizar a estimativa de disponibilidade quando o usuário mudar informações ou confirmar exceções de rotina.
-RF024	Alertar sobre conflitos, sobrecarga e tarefas que não cabem nos intervalos disponíveis.
+✅ RF024	Alertar sobre conflitos, sobrecarga e tarefas que não cabem nos intervalos disponíveis.
 Critério principal de aceite: o cálculo não deve contar duas vezes intervalos sobrepostos nem considerar como disponível um período já reservado. A interface deve mostrar horas, percentual e janelas livres.
 MOD05 — Gerenciamento de tarefas
 Código	Requisito funcional
