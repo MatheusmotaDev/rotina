@@ -120,11 +120,11 @@ RF056	Permitir ativar ou desativar tipos de notificações e atualizar lembretes
 Critério principal de aceite: o aplicativo continua utilizável se o usuário negar permissão de notificações. Um reagendamento apenas sugerido não deve trocar os lembretes da agenda vigente.
 MOD10 — Relatórios e acompanhamento
 Código	Requisito funcional
-RF057	Mostrar um relatório diário com tarefas concluídas, pendentes e adiadas.
-RF058	Apresentar tempo estimado das tarefas e tempo realmente registrado em sessões de foco.
-RF059	Apresentar o total de descanso registrado e os horários planejado e real de despertar.
-RF060	Exibir um resumo semanal simples com tendências de conclusão e regularidade.
-RF061	Mostrar feedback baseado em regras e nas informações efetivamente registradas.
+✅ RF057	Mostrar um relatório diário com tarefas concluídas, pendentes e adiadas.
+✅ RF058	Apresentar tempo estimado das tarefas e tempo realmente registrado em sessões de foco.
+✅ RF059	Apresentar o total de descanso registrado e os horários planejado e real de despertar.
+✅ RF060	Exibir um resumo semanal simples com tendências de conclusão e regularidade.
+✅ RF061	Mostrar feedback baseado em regras e nas informações efetivamente registradas.
 Critério principal de aceite: os relatórios devem distinguir planejado, registrado e não informado, sem presumir que uma tarefa foi realizada só porque seu horário passou.
 MOD11 — Planejamento do próximo dia
 Código	Requisito funcional
@@ -263,7 +263,7 @@ O MVP estará pronto para validação de produto quando:
 [✅] Tarefas pontuais e recorrentes puderem ser criadas e acompanhadas.
 [ ] O usuário conseguir aceitar, ajustar ou rejeitar propostas de replanejamento.
 [✅] Sessões de foco e descansos forem registrados separadamente do tempo estimado.
-[ ] Relatórios diários e semanais mostrarem dados coerentes.
+[✅] Relatórios diários e semanais mostrarem dados coerentes.
 [ ] O planejamento de amanhã puder ser confirmado e revisto no dia seguinte.
 [ ] Notificações e widget funcionarem dentro dos limites do sistema operacional.
 [ ] RLS, integridade de dados e validações de concorrência forem testadas em PostgreSQL/Supabase real.
