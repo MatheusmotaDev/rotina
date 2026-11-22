@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../domain/models/recurring_commitment.dart';
 import '../viewmodels/commitments_view_model.dart';
+import 'commitment_exception_page.dart';
 import 'commitment_form_page.dart';
+import 'daily_commitments_page.dart';
 
 class CommitmentsPage extends ConsumerWidget {
   const CommitmentsPage({super.key});
@@ -14,7 +16,20 @@ class CommitmentsPage extends ConsumerWidget {
     final commitments = ref.watch(commitmentsViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Compromissos')),
+      appBar: AppBar(
+        title: const Text('Compromissos'),
+        actions: [
+          IconButton(
+            tooltip: 'Ver compromissos do dia',
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const DailyCommitmentsPage(),
+              ),
+            ),
+            icon: const Icon(Icons.calendar_view_day_outlined),
+          ),
+        ],
+      ),
       body: commitments.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, _) => _ErrorState(
@@ -40,6 +55,12 @@ class CommitmentsPage extends ConsumerWidget {
                       commitment: commitment,
                       hasConflict: hasConflict,
                       onEdit: () => _openForm(context, commitment: commitment),
+                      onAdjustDate: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              CommitmentExceptionPage(commitment: commitment),
+                        ),
+                      ),
                       onToggle: (active) =>
                           _toggle(context, ref, commitment, active),
                       onDelete: () => _delete(context, ref, commitment),
@@ -122,6 +143,7 @@ class _CommitmentCard extends StatelessWidget {
     required this.commitment,
     required this.hasConflict,
     required this.onEdit,
+    required this.onAdjustDate,
     required this.onToggle,
     required this.onDelete,
   });
@@ -129,6 +151,7 @@ class _CommitmentCard extends StatelessWidget {
   final RecurringCommitment commitment;
   final bool hasConflict;
   final VoidCallback onEdit;
+  final VoidCallback onAdjustDate;
   final ValueChanged<bool> onToggle;
   final VoidCallback onDelete;
 
@@ -199,9 +222,14 @@ class _CommitmentCard extends StatelessWidget {
               ),
             ),
             PopupMenuButton<String>(
-              onSelected: (value) => value == 'edit' ? onEdit() : onDelete(),
+              onSelected: (value) {
+                if (value == 'edit') return onEdit();
+                if (value == 'date') return onAdjustDate();
+                onDelete();
+              },
               itemBuilder: (_) => const [
                 PopupMenuItem(value: 'edit', child: Text('Editar')),
+                PopupMenuItem(value: 'date', child: Text('Ajustar uma data')),
                 PopupMenuItem(value: 'delete', child: Text('Excluir')),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../domain/models/daily_commitment.dart';
 import '../../domain/models/recurring_commitment.dart';
 
 class CommitmentsRepository {
@@ -138,10 +139,145 @@ class CommitmentsRepository {
         .inFilter('id', commitment.rowIds.toList());
   }
 
+  Future<List<DailyCommitment>> loadForDate(DateTime date) async {
+    final user = _requireUser();
+    final day = DateTime(date.year, date.month, date.day);
+    final previousDay = day.subtract(const Duration(days: 1));
+    final commitments = await load();
+    final exceptions = await _client
+        .from('excecoes_compromissos')
+        .select()
+        .eq('usuario_id', user.id)
+        .gte('data_local', _dateForDatabase(previousDay))
+        .lte('data_local', _dateForDatabase(day));
+    final exceptionsByKey = <String, Map<String, dynamic>>{
+      for (final raw in exceptions)
+        '${raw['compromisso_id']}|${raw['data_local']}':
+            Map<String, dynamic>.from(raw),
+    };
+
+    final occurrences = <DailyCommitment>[];
+    for (final commitment in commitments.where((item) => item.active)) {
+      for (final occurrenceDate in [previousDay, day]) {
+        final weekday = occurrenceDate.weekday;
+        final rowId = commitment.rowIdsByDay[weekday];
+        if (rowId == null) continue;
+        final exception =
+            exceptionsByKey['$rowId|${_dateForDatabase(occurrenceDate)}'];
+        final occurrence = _dailyOccurrence(
+          commitment,
+          occurrenceDate,
+          exception,
+        );
+        if (occurrence == null) continue;
+        final dayEnd = day.add(const Duration(days: 1));
+        if (occurrence.end.isAfter(day) && occurrence.start.isBefore(dayEnd)) {
+          occurrences.add(occurrence);
+        }
+      }
+    }
+    occurrences.sort((a, b) => a.start.compareTo(b.start));
+    return occurrences;
+  }
+
+  Future<void> saveException({
+    required RecurringCommitment commitment,
+    required DateTime date,
+    required CommitmentExceptionAction action,
+    int? changedStartMinutes,
+    int? changedEndMinutes,
+  }) async {
+    final user = _requireUser();
+    final localDate = DateTime(date.year, date.month, date.day);
+    final rowId = commitment.rowIdsByDay[localDate.weekday];
+    if (rowId == null) {
+      throw ArgumentError('O compromisso não acontece na data escolhida.');
+    }
+
+    if (action == CommitmentExceptionAction.defaultSchedule) {
+      await _client
+          .from('excecoes_compromissos')
+          .delete()
+          .eq('usuario_id', user.id)
+          .eq('compromisso_id', rowId)
+          .eq('data_local', _dateForDatabase(localDate));
+      return;
+    }
+
+    DateTime? changedStart;
+    DateTime? changedEnd;
+    if (action == CommitmentExceptionAction.changed) {
+      if (changedStartMinutes == null || changedEndMinutes == null) {
+        throw ArgumentError('Informe os novos horários.');
+      }
+      changedStart = _dateTimeAt(localDate, changedStartMinutes);
+      changedEnd = _dateTimeAt(localDate, changedEndMinutes);
+      if (!changedEnd.isAfter(changedStart)) {
+        changedEnd = changedEnd.add(const Duration(days: 1));
+      }
+    }
+
+    await _client.from('excecoes_compromissos').upsert({
+      'usuario_id': user.id,
+      'compromisso_id': rowId,
+      'data_local': _dateForDatabase(localDate),
+      'situacao': action == CommitmentExceptionAction.cancelled
+          ? 'cancelado'
+          : 'alterado',
+      'inicio_ajustado_em': changedStart?.toUtc().toIso8601String(),
+      'fim_ajustado_em': changedEnd?.toUtc().toIso8601String(),
+    }, onConflict: 'usuario_id,compromisso_id,data_local');
+  }
+
   User _requireUser() {
     final user = _client.auth.currentUser;
     if (user == null) throw const AuthException('Sessão não encontrada.');
     return user;
+  }
+
+  DailyCommitment? _dailyOccurrence(
+    RecurringCommitment commitment,
+    DateTime date,
+    Map<String, dynamic>? exception,
+  ) {
+    if (exception?['situacao'] == 'cancelado') return null;
+    if (exception?['situacao'] == 'alterado') {
+      return DailyCommitment(
+        source: commitment,
+        date: date,
+        start: DateTime.parse(exception!['inicio_ajustado_em'] as String)
+            .toLocal(),
+        end: DateTime.parse(exception['fim_ajustado_em'] as String).toLocal(),
+        changedForDate: true,
+      );
+    }
+
+    final start = _dateTimeAt(date, commitment.startMinutes);
+    var end = _dateTimeAt(date, commitment.endMinutes);
+    if (!end.isAfter(start)) end = end.add(const Duration(days: 1));
+    return DailyCommitment(
+      source: commitment,
+      date: date,
+      start: start,
+      end: end,
+      changedForDate: false,
+    );
+  }
+
+  DateTime _dateTimeAt(DateTime date, int minutes) {
+    return DateTime(
+      date.year,
+      date.month,
+      date.day,
+      minutes ~/ 60,
+      minutes % 60,
+    );
+  }
+
+  String _dateForDatabase(DateTime date) {
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '${date.year}-$month-$day';
   }
 
   Map<String, dynamic> _rowPayload({

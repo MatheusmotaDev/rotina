@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../auth/presentation/viewmodels/auth_providers.dart';
 import '../../data/repositories/commitments_repository.dart';
+import '../../domain/models/daily_commitment.dart';
 import '../../domain/models/recurring_commitment.dart';
 
 final commitmentsRepositoryProvider = Provider<CommitmentsRepository>((ref) {
@@ -91,4 +92,9 @@ class CommitmentsViewModel extends AsyncNotifier<List<RecurringCommitment>> {
 final commitmentsViewModelProvider =
     AsyncNotifierProvider<CommitmentsViewModel, List<RecurringCommitment>>(
       CommitmentsViewModel.new,
+    );
+
+final dailyCommitmentsProvider =
+    FutureProvider.family<List<DailyCommitment>, DateTime>(
+      (ref, date) => ref.watch(commitmentsRepositoryProvider).loadForDate(date),
     );
