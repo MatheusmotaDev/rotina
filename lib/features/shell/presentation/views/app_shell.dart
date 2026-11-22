@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../commitments/presentation/views/commitment_form_page.dart';
 import '../../../home/presentation/views/home_page.dart';
 import '../../../profile/presentation/views/profile_page.dart';
 import '../../../shared/presentation/views/placeholder_page.dart';
@@ -79,33 +80,43 @@ class AppShell extends ConsumerWidget {
     );
   }
 
-  Future<void> _showCreateMenu(BuildContext context) {
+  Future<void> _showCreateMenu(BuildContext pageContext) {
     return showModalBottomSheet<void>(
-      context: context,
+      context: pageContext,
       showDragHandle: true,
-      builder: (context) => SafeArea(
+      builder: (sheetContext) => SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Adicionar', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Adicionar',
+                style: Theme.of(sheetContext).textTheme.titleLarge,
+              ),
               const SizedBox(height: 12),
               ListTile(
                 leading: const Icon(Icons.add_task_rounded),
                 title: const Text('Nova tarefa'),
-                onTap: () => Navigator.pop(context),
+                onTap: () => Navigator.pop(sheetContext),
               ),
               ListTile(
                 leading: const Icon(Icons.event_rounded),
                 title: const Text('Novo compromisso'),
-                onTap: () => Navigator.pop(context),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  Navigator.of(pageContext).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const CommitmentFormPage(),
+                    ),
+                  );
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.coffee_rounded),
                 title: const Text('Registrar pausa'),
-                onTap: () => Navigator.pop(context),
+                onTap: () => Navigator.pop(sheetContext),
               ),
             ],
           ),
