@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../commitments/presentation/views/commitment_form_page.dart';
+import '../../../focus/presentation/views/focus_page.dart';
 import '../../../home/presentation/views/home_page.dart';
 import '../../../profile/presentation/views/profile_page.dart';
 import '../../../shared/presentation/views/placeholder_page.dart';
@@ -20,7 +21,9 @@ class AppShell extends ConsumerWidget {
     final selectedIndex = ref.watch(shellViewModelProvider);
     final pages = [
       HomePage(authenticated: authenticated),
-      const PlaceholderPage(title: 'Foco', icon: Icons.timer_outlined),
+      authenticated
+          ? const FocusPage()
+          : const PlaceholderPage(title: 'Foco', icon: Icons.timer_outlined),
       authenticated
           ? const TasksPage()
           : const PlaceholderPage(
