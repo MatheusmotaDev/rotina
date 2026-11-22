@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../availability/presentation/viewmodels/availability_provider.dart';
 import '../../../auth/presentation/viewmodels/auth_providers.dart';
 import '../../domain/models/routine_setup.dart';
 import '../viewmodels/onboarding_view_model.dart';
@@ -127,6 +128,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
     if (!mounted || !saved) return;
 
     ref.invalidate(authSessionProvider);
+    ref.invalidate(availabilityProvider);
     if (widget.editing) {
       Navigator.of(context).pop();
     } else {

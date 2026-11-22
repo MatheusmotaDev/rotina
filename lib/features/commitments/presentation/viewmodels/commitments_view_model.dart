@@ -86,6 +86,7 @@ class CommitmentsViewModel extends AsyncNotifier<List<RecurringCommitment>> {
     try {
       await operation();
       state = AsyncData(await ref.read(commitmentsRepositoryProvider).load());
+      ref.invalidate(dailyCommitmentsProvider);
       return true;
     } catch (_) {
       return false;

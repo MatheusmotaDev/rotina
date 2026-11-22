@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../availability/presentation/views/availability_home_card.dart';
 import '../../../checkin/presentation/views/checkin_home_card.dart';
 import '../viewmodels/home_view_model.dart';
 
@@ -42,43 +43,46 @@ class HomePage extends ConsumerWidget {
           const SizedBox(height: 6),
           const Text('Veja como está o seu dia.'),
           const SizedBox(height: 22),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Tempo livre hoje'),
-                  const SizedBox(height: 6),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          summary.formattedFreeTime,
-                          style: Theme.of(context).textTheme.headlineMedium
-                              ?.copyWith(fontSize: 36),
+          if (authenticated)
+            const AvailabilityHomeCard()
+          else
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Tempo livre hoje'),
+                    const SizedBox(height: 6),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            summary.formattedFreeTime,
+                            style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(fontSize: 36),
+                          ),
                         ),
-                      ),
-                      _ProgressBadge(value: summary.progress),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  LinearProgressIndicator(
-                    value: summary.progress,
-                    minHeight: 7,
-                    borderRadius: BorderRadius.circular(8),
-                    backgroundColor: AppColors.surfaceElevated,
-                    color: AppColors.primary,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${summary.completedTasks} de ${summary.totalTasks} atividades concluídas',
-                  ),
-                ],
+                        _ProgressBadge(value: summary.progress),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    LinearProgressIndicator(
+                      value: summary.progress,
+                      minHeight: 7,
+                      borderRadius: BorderRadius.circular(8),
+                      backgroundColor: AppColors.surfaceElevated,
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '${summary.completedTasks} de ${summary.totalTasks} atividades concluídas',
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
           const SizedBox(height: 14),
           _InfoCard(
             label: 'Próxima atividade',
