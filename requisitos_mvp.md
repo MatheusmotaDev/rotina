@@ -85,14 +85,14 @@ Código	Requisito funcional
 Critério principal de aceite: uma tarefa semanal concluída hoje deve continuar prevista para a próxima semana. Ao concluir ou adiar uma ocorrência, o aplicativo deve refletir o estado correto nas listas e nos relatórios.
 MOD06 — Planejamento e replanejamento assistido
 Código	Requisito funcional
-RF034	Apresentar uma agenda diária em linha do tempo, com compromissos, tarefas e pausas.
-RF035	Sugerir horários para tarefas considerando duração, prioridade, prazo e intervalos disponíveis.
-RF036	Mostrar a proposta inicial do dia para avaliação antes de confirmar a programação.
-RF037	Identificar mudanças que podem exigir replanejamento, como despertar tardio, cancelamento ou tarefa atrasada.
-RF038	Gerar uma proposta de replanejamento sem modificar imediatamente a agenda vigente.
-RF039	Mostrar, para cada atividade afetada, seu horário atual e o novo horário sugerido.
-RF040	Permitir aprovar, rejeitar ou ajustar manualmente a proposta.
-RF041	Aplicar as alterações apenas após confirmação do usuário, verificando novamente possíveis conflitos.
+✅ RF034	Apresentar uma agenda diária em linha do tempo, com compromissos, tarefas e pausas.
+✅ RF035	Sugerir horários para tarefas considerando duração, prioridade, prazo e intervalos disponíveis.
+✅ RF036	Mostrar a proposta inicial do dia para avaliação antes de confirmar a programação.
+✅ RF037	Identificar mudanças que podem exigir replanejamento, como despertar tardio, cancelamento ou tarefa atrasada.
+✅ RF038	Gerar uma proposta de replanejamento sem modificar imediatamente a agenda vigente.
+✅ RF039	Mostrar, para cada atividade afetada, seu horário atual e o novo horário sugerido.
+✅ RF040	Permitir aprovar, rejeitar ou ajustar manualmente a proposta.
+✅ RF041	Aplicar as alterações apenas após confirmação do usuário, verificando novamente possíveis conflitos.
 RF042	Manter a agenda original se a proposta for rejeitada; refletir o resultado confirmado nas telas e lembretes.
 Critério principal de aceite: ao acordar duas horas depois do previsto, o usuário deve conseguir comparar o plano vigente com a sugestão. Escolher Rejeitar não muda os horários; escolher Aprovar aplica somente as alterações confirmadas e válidas.
 MOD07 — Modo Foco
@@ -261,7 +261,7 @@ O MVP estará pronto para validação de produto quando:
 [✅] O check-in recalcular a disponibilidade sem alterar a agenda automaticamente.
 [✅] O motor encontrar janelas livres sem sobreposições e detectar sobrecarga.
 [✅] Tarefas pontuais e recorrentes puderem ser criadas e acompanhadas.
-[ ] O usuário conseguir aceitar, ajustar ou rejeitar propostas de replanejamento.
+[✅] O usuário conseguir aceitar, ajustar ou rejeitar propostas de replanejamento.
 [✅] Sessões de foco e descansos forem registrados separadamente do tempo estimado.
 [✅] Relatórios diários e semanais mostrarem dados coerentes.
 [✅] O planejamento de amanhã puder ser confirmado e revisto no dia seguinte.
