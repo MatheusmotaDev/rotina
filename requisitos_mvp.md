@@ -128,10 +128,10 @@ Código	Requisito funcional
 Critério principal de aceite: os relatórios devem distinguir planejado, registrado e não informado, sem presumir que uma tarefa foi realizada só porque seu horário passou.
 MOD11 — Planejamento do próximo dia
 Código	Requisito funcional
-RF062	Oferecer, ao encerrar o dia, a preparação da rotina de amanhã.
-RF063	Permitir confirmar compromissos de amanhã, como faculdade e trabalho.
-RF064	Permitir indicar horário de despertar pretendido e avaliar tarefas pendentes para transferência.
-RF065	Exibir uma previsão provisória da disponibilidade de amanhã, a ser revista no check-in seguinte.
+✅ RF062	Oferecer, ao encerrar o dia, a preparação da rotina de amanhã.
+✅ RF063	Permitir confirmar compromissos de amanhã, como faculdade e trabalho.
+✅ RF064	Permitir indicar horário de despertar pretendido e avaliar tarefas pendentes para transferência.
+✅ RF065	Exibir uma previsão provisória da disponibilidade de amanhã, a ser revista no check-in seguinte.
 Critério principal de aceite: confirmar que amanhã não haverá faculdade deve retirar esse compromisso da previsão daquele dia, sem alterar a regra recorrente da faculdade.
 MOD12 — Widget na tela inicial
 Código	Requisito funcional
@@ -264,7 +264,7 @@ O MVP estará pronto para validação de produto quando:
 [ ] O usuário conseguir aceitar, ajustar ou rejeitar propostas de replanejamento.
 [✅] Sessões de foco e descansos forem registrados separadamente do tempo estimado.
 [✅] Relatórios diários e semanais mostrarem dados coerentes.
-[ ] O planejamento de amanhã puder ser confirmado e revisto no dia seguinte.
+[✅] O planejamento de amanhã puder ser confirmado e revisto no dia seguinte.
 [ ] Notificações e widget funcionarem dentro dos limites do sistema operacional.
 [ ] RLS, integridade de dados e validações de concorrência forem testadas em PostgreSQL/Supabase real.
 [ ] Os fluxos principais tiverem testes automatizados e validação manual em dispositivos.
