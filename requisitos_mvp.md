@@ -97,11 +97,11 @@ RF042	Manter a agenda original se a proposta for rejeitada; refletir o resultado
 Critério principal de aceite: ao acordar duas horas depois do previsto, o usuário deve conseguir comparar o plano vigente com a sugestão. Escolher Rejeitar não muda os horários; escolher Aprovar aplica somente as alterações confirmadas e válidas.
 MOD07 — Modo Foco
 Código	Requisito funcional
-RF043	Iniciar uma sessão de foco vinculada, opcionalmente, a uma tarefa.
-RF044	Oferecer modo Pomodoro com duração padrão de 25 minutos e opção de ajuste.
-RF045	Oferecer cronômetro livre.
-RF046	Permitir pausar, retomar e encerrar uma sessão.
-RF047	Registrar a duração efetiva da sessão para uso nos relatórios.
+✅ RF043	Iniciar uma sessão de foco vinculada, opcionalmente, a uma tarefa.
+✅ RF044	Oferecer modo Pomodoro com duração padrão de 25 minutos e opção de ajuste.
+✅ RF045	Oferecer cronômetro livre.
+✅ RF046	Permitir pausar, retomar e encerrar uma sessão.
+✅ RF047	Registrar a duração efetiva da sessão para uso nos relatórios.
 Critério principal de aceite: uma tarefa estimada em 90 minutos pode receber uma sessão real de 50 minutos sem que isso a marque automaticamente como concluída.
 MOD08 — Pausas e descanso
 Código	Requisito funcional
