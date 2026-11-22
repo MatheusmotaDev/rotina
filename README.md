@@ -30,6 +30,13 @@ flutter test
 
 O Flutter também requer que o Git esteja instalado e disponível no `PATH`.
 
+## Migrações do banco
+
+As alterações incrementais do PostgreSQL ficam em `supabase/migrations`. Antes
+de executar uma versão do aplicativo que dependa de uma migração nova, aplique
+os arquivos ainda pendentes pelo SQL Editor do projeto Supabase, respeitando a
+ordem dos nomes.
+
 ## Estrutura principal
 
 - `lib/app`: composição do aplicativo.

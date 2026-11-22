@@ -49,7 +49,7 @@ MOD02 — Compromissos fixos e recorrentes
 Código	Requisito funcional
 ✅ RF008	Cadastrar compromissos com título, dias da semana, horário de início e término.
 ✅ RF009	Permitir criar, consultar, editar, ativar/desativar e excluir compromissos recorrentes.
-RF010	Classificar compromissos como obrigatórios ou flexíveis para fins de planejamento.
+✅ RF010	Classificar compromissos como obrigatórios ou flexíveis para fins de planejamento.
 ✅ RF011	Permitir informar deslocamento associado a compromissos.
 ✅ RF012	Permitir cancelar ou alterar a ocorrência de um compromisso em uma data específica, sem apagar a regra semanal.
 ✅ RF013	Mostrar os compromissos aplicáveis ao dia e identificar conflitos de horários.
@@ -257,7 +257,7 @@ Ferramentas de gestão financeira ou de projetos corporativos.
 9. Definição de pronto do MVP
 O MVP estará pronto para validação de produto quando:
 [✅] O usuário conseguir criar sua conta e cadastrar uma rotina.
-[ ] Compromissos recorrentes e exceções funcionarem corretamente.
+[✅] Compromissos recorrentes e exceções funcionarem corretamente.
 [ ] O check-in recalcular a disponibilidade sem alterar a agenda automaticamente.
 [ ] O motor encontrar janelas livres sem sobreposições e detectar sobrecarga.
 [ ] Tarefas pontuais e recorrentes puderem ser criadas e acompanhadas.
