@@ -14,6 +14,7 @@ void main() {
       rowIdsByDay: {day: 'id-$day-$start'},
       title: 'Compromisso',
       type: CommitmentType.other,
+      mandatory: true,
       startMinutes: start,
       endMinutes: end,
       commuteBeforeMinutes: before,

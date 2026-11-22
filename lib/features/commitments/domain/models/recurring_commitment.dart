@@ -8,6 +8,7 @@ class RecurringCommitment {
     required this.rowIdsByDay,
     required this.title,
     required this.type,
+    required this.mandatory,
     required this.startMinutes,
     required this.endMinutes,
     required this.commuteBeforeMinutes,
@@ -18,6 +19,7 @@ class RecurringCommitment {
   final Map<int, String> rowIdsByDay;
   final String title;
   final CommitmentType type;
+  final bool mandatory;
   final int startMinutes;
   final int endMinutes;
   final int commuteBeforeMinutes;

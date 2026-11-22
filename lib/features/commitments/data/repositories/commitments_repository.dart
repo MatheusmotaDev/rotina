@@ -29,6 +29,7 @@ class CommitmentsRepository {
   Future<void> create({
     required String title,
     required CommitmentType type,
+    required bool mandatory,
     required Set<int> weekdays,
     required int startMinutes,
     required int endMinutes,
@@ -46,6 +47,7 @@ class CommitmentsRepository {
                   day: day,
                   title: title,
                   type: type,
+                  mandatory: mandatory,
                   startMinutes: startMinutes,
                   endMinutes: endMinutes,
                   commuteBeforeMinutes: commuteBeforeMinutes,
@@ -61,6 +63,7 @@ class CommitmentsRepository {
     RecurringCommitment commitment, {
     required String title,
     required CommitmentType type,
+    required bool mandatory,
     required Set<int> weekdays,
     required int startMinutes,
     required int endMinutes,
@@ -85,6 +88,7 @@ class CommitmentsRepository {
     final commonChanges = {
       'titulo': title.trim(),
       'tipo': _typeForDatabase(type),
+      'obrigatorio': mandatory,
       'hora_inicio': RecurringCommitment.timeForDatabase(startMinutes),
       'hora_fim': RecurringCommitment.timeForDatabase(endMinutes),
       'deslocamento_antes_min': commuteBeforeMinutes,
@@ -109,6 +113,7 @@ class CommitmentsRepository {
                     day: day,
                     title: title,
                     type: type,
+                    mandatory: mandatory,
                     startMinutes: startMinutes,
                     endMinutes: endMinutes,
                     commuteBeforeMinutes: commuteBeforeMinutes,
@@ -285,6 +290,7 @@ class CommitmentsRepository {
     required int day,
     required String title,
     required CommitmentType type,
+    required bool mandatory,
     required int startMinutes,
     required int endMinutes,
     required int commuteBeforeMinutes,
@@ -295,6 +301,7 @@ class CommitmentsRepository {
       'usuario_id': userId,
       'titulo': title.trim(),
       'tipo': _typeForDatabase(type),
+      'obrigatorio': mandatory,
       'dia_semana': day,
       'hora_inicio': RecurringCommitment.timeForDatabase(startMinutes),
       'hora_fim': RecurringCommitment.timeForDatabase(endMinutes),
@@ -312,6 +319,7 @@ class CommitmentsRepository {
       },
       title: first['titulo'] as String,
       type: _typeFromDatabase(first['tipo'] as String),
+      mandatory: first['obrigatorio'] as bool? ?? true,
       startMinutes: RecurringCommitment.parseTime(
         first['hora_inicio'] as String,
       ),
@@ -326,6 +334,7 @@ class CommitmentsRepository {
     return [
       row['titulo'],
       row['tipo'],
+      row['obrigatorio'] ?? true,
       row['hora_inicio'],
       row['hora_fim'],
       row['deslocamento_antes_min'],

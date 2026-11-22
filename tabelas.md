@@ -43,6 +43,7 @@ create table public.compromissos_recorrentes (
     usuario_id uuid not null references public.perfis(id) on delete cascade,
     titulo varchar(160) not null check (length(btrim(titulo)) > 0),
     tipo text not null check (tipo in ('trabalho','faculdade','outro')),
+    obrigatorio boolean not null default true,
     dia_semana smallint not null check (dia_semana between 1 and 7),
     hora_inicio time not null,
     hora_fim time not null,

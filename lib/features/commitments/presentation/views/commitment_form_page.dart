@@ -19,6 +19,7 @@ class _CommitmentFormPageState extends ConsumerState<CommitmentFormPage> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
   late CommitmentType _type;
+  late bool _mandatory;
   late Set<int> _weekdays;
   late int _startMinutes;
   late int _endMinutes;
@@ -32,6 +33,7 @@ class _CommitmentFormPageState extends ConsumerState<CommitmentFormPage> {
     final commitment = widget.commitment;
     _titleController = TextEditingController(text: commitment?.title);
     _type = commitment?.type ?? CommitmentType.other;
+    _mandatory = commitment?.mandatory ?? true;
     _weekdays = {...?commitment?.weekdays};
     _startMinutes = commitment?.startMinutes ?? 8 * 60;
     _endMinutes = commitment?.endMinutes ?? 9 * 60;
@@ -91,6 +93,24 @@ class _CommitmentFormPageState extends ConsumerState<CommitmentFormPage> {
                   ),
                 ],
                 onChanged: (value) => setState(() => _type = value!),
+              ),
+              const SizedBox(height: 14),
+              Card(
+                child: SwitchListTile(
+                  value: _mandatory,
+                  onChanged: (value) => setState(() => _mandatory = value),
+                  secondary: Icon(
+                    _mandatory
+                        ? Icons.lock_outline_rounded
+                        : Icons.swap_horiz_rounded,
+                  ),
+                  title: Text(_mandatory ? 'Obrigatório' : 'Flexível'),
+                  subtitle: Text(
+                    _mandatory
+                        ? 'Este horário deve ser preservado no planejamento.'
+                        : 'Este horário pode ser considerado em sugestões de ajuste.',
+                  ),
+                ),
               ),
               const SizedBox(height: 22),
               Text(
@@ -212,6 +232,7 @@ class _CommitmentFormPageState extends ConsumerState<CommitmentFormPage> {
         ? await viewModel.create(
             title: _titleController.text,
             type: _type,
+            mandatory: _mandatory,
             weekdays: _weekdays,
             startMinutes: _startMinutes,
             endMinutes: _endMinutes,
@@ -222,6 +243,7 @@ class _CommitmentFormPageState extends ConsumerState<CommitmentFormPage> {
             commitment,
             title: _titleController.text,
             type: _type,
+            mandatory: _mandatory,
             weekdays: _weekdays,
             startMinutes: _startMinutes,
             endMinutes: _endMinutes,

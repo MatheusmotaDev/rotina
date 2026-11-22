@@ -18,6 +18,7 @@ class CommitmentsViewModel extends AsyncNotifier<List<RecurringCommitment>> {
   Future<bool> create({
     required String title,
     required CommitmentType type,
+    required bool mandatory,
     required Set<int> weekdays,
     required int startMinutes,
     required int endMinutes,
@@ -30,6 +31,7 @@ class CommitmentsViewModel extends AsyncNotifier<List<RecurringCommitment>> {
           .create(
             title: title,
             type: type,
+            mandatory: mandatory,
             weekdays: weekdays,
             startMinutes: startMinutes,
             endMinutes: endMinutes,
@@ -43,6 +45,7 @@ class CommitmentsViewModel extends AsyncNotifier<List<RecurringCommitment>> {
     RecurringCommitment commitment, {
     required String title,
     required CommitmentType type,
+    required bool mandatory,
     required Set<int> weekdays,
     required int startMinutes,
     required int endMinutes,
@@ -56,6 +59,7 @@ class CommitmentsViewModel extends AsyncNotifier<List<RecurringCommitment>> {
             commitment,
             title: title,
             type: type,
+            mandatory: mandatory,
             weekdays: weekdays,
             startMinutes: startMinutes,
             endMinutes: endMinutes,

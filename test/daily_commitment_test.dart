@@ -7,6 +7,7 @@ void main() {
     rowIdsByDay: {1: 'id'},
     title: 'Faculdade',
     type: CommitmentType.college,
+    mandatory: true,
     startMinutes: 18 * 60,
     endMinutes: 21 * 60,
     commuteBeforeMinutes: 30,

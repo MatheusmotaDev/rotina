@@ -192,6 +192,8 @@ class _CommitmentCard extends StatelessWidget {
                     '${_formatTime(commitment.startMinutes)} – ${_formatTime(commitment.endMinutes)}',
                   ),
                   const SizedBox(height: 5),
+                  _CommitmentKindBadge(mandatory: commitment.mandatory),
+                  const SizedBox(height: 5),
                   Text(_formatWeekdays(commitment.weekdays)),
                   if (commitment.commuteBeforeMinutes > 0 ||
                       commitment.commuteAfterMinutes > 0) ...[
@@ -234,6 +236,31 @@ class _CommitmentCard extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CommitmentKindBadge extends StatelessWidget {
+  const _CommitmentKindBadge({required this.mandatory});
+
+  final bool mandatory;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = mandatory ? AppColors.warning : AppColors.primary;
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.13),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          mandatory ? 'Obrigatório' : 'Flexível',
+          style: TextStyle(color: color, fontSize: 12),
         ),
       ),
     );
