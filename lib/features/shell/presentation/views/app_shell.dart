@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../commitments/presentation/views/commitment_form_page.dart';
+import '../../../breaks/presentation/views/breaks_page.dart';
 import '../../../focus/presentation/views/focus_page.dart';
 import '../../../home/presentation/views/home_page.dart';
 import '../../../profile/presentation/views/profile_page.dart';
@@ -135,7 +136,16 @@ class AppShell extends ConsumerWidget {
               ListTile(
                 leading: const Icon(Icons.coffee_rounded),
                 title: const Text('Registrar pausa'),
-                onTap: () => Navigator.pop(sheetContext),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  if (authenticated) {
+                    Navigator.of(pageContext).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const BreaksPage(),
+                      ),
+                    );
+                  }
+                },
               ),
             ],
           ),
