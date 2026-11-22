@@ -73,15 +73,15 @@ RF024	Alertar sobre conflitos, sobrecarga e tarefas que não cabem nos intervalo
 Critério principal de aceite: o cálculo não deve contar duas vezes intervalos sobrepostos nem considerar como disponível um período já reservado. A interface deve mostrar horas, percentual e janelas livres.
 MOD05 — Gerenciamento de tarefas
 Código	Requisito funcional
-RF025	Criar tarefas com título e descrição opcional.
-RF026	Associar categoria, duração estimada, prioridade e data ou prazo a uma tarefa.
-RF027	Permitir tarefas pontuais e recorrentes.
-RF028	Listar e filtrar tarefas por data e situação.
-RF029	Editar e excluir tarefas, respeitando o histórico de execução registrado.
-RF030	Registrar os estados: pendente, em andamento, concluída e adiada.
-RF031	Permitir concluir uma ocorrência de tarefa sem concluir indevidamente todas as ocorrências futuras.
-RF032	Permitir reagendar uma tarefa manualmente.
-RF033	Destacar atividades vencidas, pendentes ou que exigem atenção.
+✅ RF025	Criar tarefas com título e descrição opcional.
+✅ RF026	Associar categoria, duração estimada, prioridade e data ou prazo a uma tarefa.
+✅ RF027	Permitir tarefas pontuais e recorrentes.
+✅ RF028	Listar e filtrar tarefas por data e situação.
+✅ RF029	Editar e excluir tarefas, respeitando o histórico de execução registrado.
+✅ RF030	Registrar os estados: pendente, em andamento, concluída e adiada.
+✅ RF031	Permitir concluir uma ocorrência de tarefa sem concluir indevidamente todas as ocorrências futuras.
+✅ RF032	Permitir reagendar uma tarefa manualmente.
+✅ RF033	Destacar atividades vencidas, pendentes ou que exigem atenção.
 Critério principal de aceite: uma tarefa semanal concluída hoje deve continuar prevista para a próxima semana. Ao concluir ou adiar uma ocorrência, o aplicativo deve refletir o estado correto nas listas e nos relatórios.
 MOD06 — Planejamento e replanejamento assistido
 Código	Requisito funcional
@@ -260,7 +260,7 @@ O MVP estará pronto para validação de produto quando:
 [✅] Compromissos recorrentes e exceções funcionarem corretamente.
 [✅] O check-in recalcular a disponibilidade sem alterar a agenda automaticamente.
 [✅] O motor encontrar janelas livres sem sobreposições e detectar sobrecarga.
-[ ] Tarefas pontuais e recorrentes puderem ser criadas e acompanhadas.
+[✅] Tarefas pontuais e recorrentes puderem ser criadas e acompanhadas.
 [ ] O usuário conseguir aceitar, ajustar ou rejeitar propostas de replanejamento.
 [ ] Sessões de foco e descansos forem registrados separadamente do tempo estimado.
 [ ] Relatórios diários e semanais mostrarem dados coerentes.
