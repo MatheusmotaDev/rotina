@@ -25,9 +25,18 @@ class CheckinRepository {
         .eq('usuario_id', user.id)
         .eq('data_local', dateValue)
         .maybeSingle();
+    final preparation = existing == null
+        ? await _client
+              .from('preparacoes_dia_seguinte')
+              .select('acordar_pretendido,compromissos_confirmados')
+              .eq('usuario_id', user.id)
+              .eq('data_local', dateValue)
+              .maybeSingle()
+        : null;
     final dailyCommitments = await _commitmentsRepository.loadForDate(date);
     final confirmations = _confirmationMap(
-      existing?['compromissos_confirmados'],
+      existing?['compromissos_confirmados'] ??
+          preparation?['compromissos_confirmados'],
     );
     final commitments = dailyCommitments.map((occurrence) {
       final id = occurrence.source.rowIdsByDay[occurrence.date.weekday]!;
@@ -42,6 +51,7 @@ class CheckinRepository {
 
     final plannedValue =
         existing?['acordar_planejado'] as String? ??
+        preparation?['acordar_pretendido'] as String? ??
         profile['hora_acordar_padrao'] as String;
     final plannedMinutes = _parseTime(plannedValue);
     return DailyCheckin(

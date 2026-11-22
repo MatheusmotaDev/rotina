@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../availability/presentation/views/availability_home_card.dart';
 import '../../../checkin/presentation/views/checkin_home_card.dart';
+import '../../../tomorrow/presentation/views/tomorrow_page.dart';
 import '../viewmodels/home_view_model.dart';
 
 class HomePage extends ConsumerWidget {
@@ -110,6 +111,20 @@ class HomePage extends ConsumerWidget {
                   ? AppColors.success
                   : AppColors.warning,
             ),
+          if (authenticated) ...[
+            const SizedBox(height: 14),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.next_plan_outlined),
+                title: const Text('Planejar amanhã'),
+                subtitle: const Text('Confirme compromissos e pendências.'),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(builder: (_) => const TomorrowPage()),
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );
