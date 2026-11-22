@@ -6,6 +6,8 @@ import '../../../commitments/presentation/views/commitment_form_page.dart';
 import '../../../home/presentation/views/home_page.dart';
 import '../../../profile/presentation/views/profile_page.dart';
 import '../../../shared/presentation/views/placeholder_page.dart';
+import '../../../tasks/presentation/views/task_form_page.dart';
+import '../../../tasks/presentation/views/tasks_page.dart';
 import '../viewmodels/shell_view_model.dart';
 
 class AppShell extends ConsumerWidget {
@@ -19,7 +21,12 @@ class AppShell extends ConsumerWidget {
     final pages = [
       HomePage(authenticated: authenticated),
       const PlaceholderPage(title: 'Foco', icon: Icons.timer_outlined),
-      const PlaceholderPage(title: 'Tarefas', icon: Icons.check_box_outlined),
+      authenticated
+          ? const TasksPage()
+          : const PlaceholderPage(
+              title: 'Tarefas',
+              icon: Icons.check_box_outlined,
+            ),
       authenticated
           ? const ProfilePage()
           : const PlaceholderPage(
@@ -99,7 +106,16 @@ class AppShell extends ConsumerWidget {
               ListTile(
                 leading: const Icon(Icons.add_task_rounded),
                 title: const Text('Nova tarefa'),
-                onTap: () => Navigator.pop(sheetContext),
+                onTap: () {
+                  Navigator.pop(sheetContext);
+                  if (authenticated) {
+                    Navigator.of(pageContext).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const TaskFormPage(),
+                      ),
+                    );
+                  }
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.event_rounded),
