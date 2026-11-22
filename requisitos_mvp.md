@@ -64,11 +64,11 @@ Código	Requisito funcional
 Critério principal de aceite: se o usuário planejou acordar às 08h e informou 10h, o cálculo de disponibilidade passa a considerar o novo início do período acordado. A agenda já confirmada não é reorganizada automaticamente.
 MOD04 — Cálculo de disponibilidade
 Código	Requisito funcional
-RF019	Calcular o tempo acordado a partir dos horários de sono e despertar usados para o dia.
+✅ RF019	Calcular o tempo acordado a partir dos horários de sono e despertar usados para o dia.
 RF020	Identificar intervalos ocupados por compromissos, deslocamentos e necessidades pessoais reservadas.
-RF021	Calcular a duração total e o percentual de tempo disponível em relação ao período acordado.
-RF022	Identificar blocos livres de tempo nos quais uma tarefa possa efetivamente caber.
-RF023	Atualizar a estimativa de disponibilidade quando o usuário mudar informações ou confirmar exceções de rotina.
+✅ RF021	Calcular a duração total e o percentual de tempo disponível em relação ao período acordado.
+✅ RF022	Identificar blocos livres de tempo nos quais uma tarefa possa efetivamente caber.
+✅ RF023	Atualizar a estimativa de disponibilidade quando o usuário mudar informações ou confirmar exceções de rotina.
 RF024	Alertar sobre conflitos, sobrecarga e tarefas que não cabem nos intervalos disponíveis.
 Critério principal de aceite: o cálculo não deve contar duas vezes intervalos sobrepostos nem considerar como disponível um período já reservado. A interface deve mostrar horas, percentual e janelas livres.
 MOD05 — Gerenciamento de tarefas
@@ -258,8 +258,8 @@ Ferramentas de gestão financeira ou de projetos corporativos.
 O MVP estará pronto para validação de produto quando:
 [✅] O usuário conseguir criar sua conta e cadastrar uma rotina.
 [✅] Compromissos recorrentes e exceções funcionarem corretamente.
-[ ] O check-in recalcular a disponibilidade sem alterar a agenda automaticamente.
-[ ] O motor encontrar janelas livres sem sobreposições e detectar sobrecarga.
+[✅] O check-in recalcular a disponibilidade sem alterar a agenda automaticamente.
+[✅] O motor encontrar janelas livres sem sobreposições e detectar sobrecarga.
 [ ] Tarefas pontuais e recorrentes puderem ser criadas e acompanhadas.
 [ ] O usuário conseguir aceitar, ajustar ou rejeitar propostas de replanejamento.
 [ ] Sessões de foco e descansos forem registrados separadamente do tempo estimado.
