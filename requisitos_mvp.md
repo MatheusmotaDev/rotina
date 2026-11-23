@@ -93,7 +93,7 @@ Código	Requisito funcional
 ✅ RF039	Mostrar, para cada atividade afetada, seu horário atual e o novo horário sugerido.
 ✅ RF040	Permitir aprovar, rejeitar ou ajustar manualmente a proposta.
 ✅ RF041	Aplicar as alterações apenas após confirmação do usuário, verificando novamente possíveis conflitos.
-RF042	Manter a agenda original se a proposta for rejeitada; refletir o resultado confirmado nas telas e lembretes.
+✅ RF042	Manter a agenda original se a proposta for rejeitada; refletir o resultado confirmado nas telas e lembretes.
 Critério principal de aceite: ao acordar duas horas depois do previsto, o usuário deve conseguir comparar o plano vigente com a sugestão. Escolher Rejeitar não muda os horários; escolher Aprovar aplica somente as alterações confirmadas e válidas.
 MOD07 — Modo Foco
 Código	Requisito funcional
@@ -112,11 +112,11 @@ Código	Requisito funcional
 Critério principal de aceite: uma pausa registrada deve aparecer no relatório sem ser tratada automaticamente como tarefa não concluída ou falha de produtividade.
 MOD09 — Notificações e lembretes
 Código	Requisito funcional
-RF052	Oferecer lembrete configurável para o check-in da manhã.
-RF053	Avisar sobre o início de tarefas e compromissos, respeitando as permissões do sistema operacional.
-RF054	Permitir lembretes de pausas e de retorno às atividades.
-RF055	Oferecer lembrete noturno para avaliação do dia e preparação de amanhã.
-RF056	Permitir ativar ou desativar tipos de notificações e atualizar lembretes após confirmação de mudanças na agenda.
+✅ RF052	Oferecer lembrete configurável para o check-in da manhã.
+✅ RF053	Avisar sobre o início de tarefas e compromissos, respeitando as permissões do sistema operacional.
+✅ RF054	Permitir lembretes de pausas e de retorno às atividades.
+✅ RF055	Oferecer lembrete noturno para avaliação do dia e preparação de amanhã.
+✅ RF056	Permitir ativar ou desativar tipos de notificações e atualizar lembretes após confirmação de mudanças na agenda.
 Critério principal de aceite: o aplicativo continua utilizável se o usuário negar permissão de notificações. Um reagendamento apenas sugerido não deve trocar os lembretes da agenda vigente.
 MOD10 — Relatórios e acompanhamento
 Código	Requisito funcional
@@ -179,7 +179,7 @@ RNF007	Manter o planejamento e os registros persistidos e sincronizáveis entre 
 RNF008	Exibir estados de carregamento, ausência de dados e falhas de conexão, evitando confirmar ações que não foram salvas.
 RNF009	Tratar horários com consistência de fuso, data e transição de dia.
 RNF010	Respeitar acessibilidade básica: contraste, navegação compreensível, áreas de toque adequadas e suporte às opções de texto do sistema.
-RNF011	Solicitar permissões de notificação apenas quando necessárias e tratar permissões negadas.
+✅ RNF011	Solicitar permissões de notificação apenas quando necessárias e tratar permissões negadas.
 RNF012	Minimizar dados pessoais coletados e observar os princípios aplicáveis da LGPD.
 RNF013	Proteger ações sensíveis de aprovação de agenda contra aplicação duplicada e condições de concorrência.
 RNF014	Permitir testes automatizados do motor de disponibilidade, recorrências e replanejamento independentemente da interface Flutter.
