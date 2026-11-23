@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../auth/presentation/viewmodels/auth_providers.dart';
+import '../../../notifications/presentation/viewmodels/notification_preferences_view_model.dart';
 import '../../data/repositories/breaks_repository.dart';
 import '../../domain/models/break_session.dart';
 
@@ -32,6 +33,11 @@ class BreaksViewModel extends AsyncNotifier<List<BreakSession>> {
     try {
       await operation();
       state = AsyncData(await ref.read(breaksRepositoryProvider).loadRecent());
+      try {
+        await ref.read(notificationSchedulerProvider).sync();
+      } catch (_) {
+        // A pausa permanece salva mesmo sem permissão de notificação.
+      }
       return true;
     } catch (_) {
       return false;

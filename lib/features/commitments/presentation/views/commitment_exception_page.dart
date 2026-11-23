@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../notifications/presentation/viewmodels/notification_preferences_view_model.dart';
 import '../../domain/models/daily_commitment.dart';
 import '../../domain/models/recurring_commitment.dart';
 import '../viewmodels/commitments_view_model.dart';
@@ -164,6 +165,11 @@ class _CommitmentExceptionPageState
             changedEndMinutes: _endMinutes,
           );
       ref.invalidate(dailyCommitmentsProvider);
+      try {
+        await ref.read(notificationSchedulerProvider).sync();
+      } catch (_) {
+        // A exceção permanece salva mesmo sem permissão de notificação.
+      }
       if (mounted) Navigator.pop(context);
     } catch (_) {
       if (mounted) {

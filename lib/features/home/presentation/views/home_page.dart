@@ -6,6 +6,7 @@ import '../../../availability/presentation/views/availability_home_card.dart';
 import '../../../checkin/presentation/views/checkin_home_card.dart';
 import '../../../tomorrow/presentation/views/tomorrow_page.dart';
 import '../../../planning/presentation/views/planning_page.dart';
+import '../../../notifications/presentation/views/notification_settings_page.dart';
 import '../viewmodels/home_view_model.dart';
 
 class HomePage extends ConsumerWidget {
@@ -32,7 +33,13 @@ class HomePage extends ConsumerWidget {
               const Spacer(),
               IconButton(
                 tooltip: 'Notificações',
-                onPressed: () {},
+                onPressed: authenticated
+                    ? () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const NotificationSettingsPage(),
+                        ),
+                      )
+                    : null,
                 icon: const Icon(Icons.notifications_none_rounded),
               ),
             ],

@@ -5,6 +5,7 @@ import '../../../availability/presentation/viewmodels/availability_provider.dart
 import '../../../breaks/presentation/viewmodels/breaks_view_model.dart';
 import '../../../checkin/presentation/viewmodels/checkin_view_model.dart';
 import '../../../commitments/presentation/viewmodels/commitments_view_model.dart';
+import '../../../notifications/presentation/viewmodels/notification_preferences_view_model.dart';
 import '../../../tasks/domain/models/task_item.dart';
 import '../../../tasks/presentation/viewmodels/tasks_view_model.dart';
 import '../../data/repositories/planning_repository.dart';
@@ -159,6 +160,11 @@ class PlanningViewModel extends AsyncNotifier<DailyPlan> {
   Future<bool> _run(Future<void> Function() operation) async {
     try {
       await operation();
+      try {
+        await ref.read(notificationSchedulerProvider).sync();
+      } catch (_) {
+        // A agenda confirmada não depende da permissão de notificação.
+      }
       ref.invalidateSelf();
       await future;
       return true;

@@ -39,6 +39,8 @@ dependencies:
   flutter_riverpod: ^3.5.0
   supabase_flutter: ^2.18.3
   flutter_dotenv: ^6.0.2
+  flutter_local_notifications: ^23.0.3
+  timezone: ^0.11.2
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../auth/presentation/viewmodels/auth_providers.dart';
+import '../../../notifications/presentation/viewmodels/notification_preferences_view_model.dart';
 import '../../data/repositories/commitments_repository.dart';
 import '../../domain/models/daily_commitment.dart';
 import '../../domain/models/recurring_commitment.dart';
@@ -87,6 +88,11 @@ class CommitmentsViewModel extends AsyncNotifier<List<RecurringCommitment>> {
       await operation();
       state = AsyncData(await ref.read(commitmentsRepositoryProvider).load());
       ref.invalidate(dailyCommitmentsProvider);
+      try {
+        await ref.read(notificationSchedulerProvider).sync();
+      } catch (_) {
+        // O compromisso permanece salvo mesmo sem permissão de notificação.
+      }
       return true;
     } catch (_) {
       return false;

@@ -7,6 +7,7 @@ import '../../../availability/presentation/views/personal_reservations_page.dart
 import '../../../commitments/presentation/views/commitments_page.dart';
 import '../../../onboarding/presentation/viewmodels/onboarding_view_model.dart';
 import '../../../onboarding/presentation/views/onboarding_page.dart';
+import '../../../notifications/presentation/views/notification_settings_page.dart';
 import '../../../reports/presentation/views/reports_page.dart';
 
 class ProfilePage extends ConsumerWidget {
@@ -86,7 +87,11 @@ class ProfilePage extends ConsumerWidget {
                   leading: const Icon(Icons.notifications_outlined),
                   title: const Text('Notificações'),
                   trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () {},
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const NotificationSettingsPage(),
+                    ),
+                  ),
                 ),
               ],
             ),
